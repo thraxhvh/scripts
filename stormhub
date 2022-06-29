@@ -8,5 +8,5 @@ if game.PlaceId == 3829055572 then -- The Underground War
 loadstring(game:HttpGet("https://raw.githubusercontent.com/thraxhvh/scripts/main/the%20underground%20war", true))()
 end
 if game.PlaceId == 286090429 then -- Arsenal
-
+loadstring(game:HttpGet("https://raw.githubusercontent.com/thraxhvh/scripts/main/arsenal", true))()
 end
