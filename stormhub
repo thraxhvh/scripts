@@ -10,3 +10,6 @@ end
 if game.PlaceId == 286090429 then -- Arsenal
 loadstring(game:HttpGet("https://raw.githubusercontent.com/thraxhvh/scripts/main/arsenal", true))()
 end
+if game.PlaceId == 70005410 then -- Blox Hunt
+loadstring(game:HttpGet("https://raw.githubusercontent.com/thraxhvh/scripts/main/blox%20hunt", true))()
+end
