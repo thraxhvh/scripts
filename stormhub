@@ -1,3 +1,4 @@
+game.StarterGui:SetCore("SendNotification", { Title = "Storm Hub", Text = "This game is not supported", Duration = 2 })
 if game.PlaceId == 155615604 then -- Prison Life
 loadstring(game:HttpGet("https://raw.githubusercontent.com/thraxhvh/scripts/main/prison%20life", true))()
 end
