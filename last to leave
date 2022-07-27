@@ -1,0 +1,81 @@
+game.StarterGui:SetCore("SendNotification", {
+    Title = 'Storm Hub';
+    Text = 'Script loading...';
+    Duration = 1;
+  })
+ wait(5)
+ game.StarterGui:SetCore("SendNotification", {
+    Title = 'Script loaded';
+    Text = 'Script made by slash';
+    Duration = 1;
+  })
+    local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/xHeptc/Kavo-UI-Library/main/source.lua"))()
+    local Window = Library.CreateLib("Storm Hub", "Midnight")
+
+-- WELCOME
+
+-- MAIN
+
+local Tab = Window:NewTab("Main")
+local MainSection = Tab:NewSection("Main")
+MainSection:NewButton("Fly", "Fly", function()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/thraxhvh/scripts/main/not%20working"))()
+end)
+MainSection:NewButton("Teleport to the middle", "teleport to the middle", function()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-1, 6, 4)
+end)
+MainSection:NewButton("Teleport to the top of the middle", "teleport to the top of the middle", function()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-1, 110, 4)
+end)
+MainSection:NewToggle("Safe", "Safe", function(state)
+    if state then
+        G_e = true
+while G_e do
+wait()
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-1, 10000, 4)
+end
+    else
+        G_e = false
+while G_e do
+wait()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-1, 10000, 4)
+end
+    end
+end)
+MainSection:NewToggle("Teleport to middle - loop", "Teleport to middle - loop", function(state)
+    if state then
+        G_e = true
+while G_e do
+wait()
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-1, 6, 4)
+end
+    else
+        G_e = false
+while G_e do
+wait()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-1, 6, 4)
+end
+    end
+end)
+
+-- MISC
+local Tab = Window:NewTab("Misc")
+local MiscSection = Tab:NewSection("Misc")
+MiscSection:NewKeybind("Keybind", "KeybindInfo", Enum.KeyCode.V, function()
+    Library:ToggleUI()
+end)
+
+-- CREDITS
+
+local Tab = Window:NewTab("Credits")
+local CreditsSection = Tab:NewSection("Credits")
+CreditsSection:NewButton("Slash - Creator", "Slash - Creator", function()
+end)
+CreditsSection:NewButton("Kavo Ui Library", "Kavo Ui Library", function()
+setclipboard("https://xheptcofficial.gitbook.io/kavo-library/")
+ game.StarterGui:SetCore("SendNotification", {
+    Title = 'Storm Hub';
+    Text = 'Link copied';
+    Duration = 1;
+  })
+end)
