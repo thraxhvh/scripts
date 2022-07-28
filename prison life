@@ -45,6 +45,56 @@ game.StarterGui:SetCore("SendNotification", {
     c = Instance.new("HopperBin", game.Players.LocalPlayer.Backpack)
     c.BinType = 4
     end)
+    MainSection:NewButton("Arrest Crims", "Arrest all crims", function()
+    local Player = game.Players.LocalPlayer
+local cpos = Player.Character.HumanoidRootPart.CFrame
+for i,v in pairs(game.Teams.Criminals:GetPlayers()) do
+if v.Name ~= Player.Name then
+local i = 10
+    repeat
+    wait()
+    i = i-1
+    game.Workspace.Remote.arrest:InvokeServer(v.Character.HumanoidRootPart)
+    Player.Character.HumanoidRootPart.CFrame = v.Character.HumanoidRootPart.CFrame * CFrame.new(0, 0, 1)
+    until i == 0
+end
+end
+Player.Character.HumanoidRootPart.CFrame = cpos
+wait()
+game.StarterGui:SetCore("SendNotification", {
+    Title = 'Storm Hub';
+    Text = 'All crims arrested';
+    Duration = 1;
+  })
+end)
+    MainSection:NewButton("Super Punch", "Super Punch", function()
+    mainRemotes = game.ReplicatedStorage meleeRemote = mainRemotes['meleeEvent'] mouse = game.Players.LocalPlayer:GetMouse() punching = false cooldown = false function punch() cooldown = true local part = Instance.new("Part", game.Players.LocalPlayer.Character) part.Transparency = 1 part.Size = Vector3.new(5, 2, 3) part.CanCollide = false local w1 = Instance.new("Weld", part) w1.Part0 = game.Players.LocalPlayer.Character.Torso w1.Part1 = part w1.C1 = CFrame.new(0,0,2) part.Touched:connect(function(hit) if game.Players:FindFirstChild(hit.Parent.Name) then local plr = game.Players:FindFirstChild(hit.Parent.Name) if plr.Name ~= game.Players.LocalPlayer.Name then part:Destroy() for i = 1,100 do meleeRemote:FireServer(plr) end end end end) wait(1) cooldown = false part:Destroy() end mouse.KeyDown:connect(function(key) if cooldown == false then if key:lower() == "f" then punch() end end end)
+    end)
+    MainSection:NewButton("Taze all", "Taze all", function()
+    workspace.Remote.TeamEvent:FireServer("Bright blue")
+ 
+function kill(a)
+local A_1 = 
+{
+	[1] = 
+{
+	["RayObject"] = Ray.new(Vector3.new(829.838562, 101.489998, 2331.25635), Vector3.new(-30.6540909, -5.42795324, 95.0308533)), 
+	["Distance"] = 15.355997085571, 
+	["Cframe"] = CFrame.new(826.616699, 100.8508, 2340.11279, 0.964640439, -0.00993416365, -0.263382077, 9.31322575e-10, 0.999289393, -0.0376908854, 0.263569355, 0.0363581516, 0.963954985), 
+	["Hit"] = a.Character.Torso
+}
+}
+local A_2 = game.Players.LocalPlayer.Backpack["Taser"]
+local Event = game:GetService("ReplicatedStorage").ShootEvent
+Event:FireServer(A_1, A_2)
+end
+ 
+for i,v in pairs(game.Players:GetChildren())do
+if v.Name ~= game.Players.LocalPlayer.Name then
+kill(v)
+end
+end
+end)
     
     --TELEPORTS
     local Teleports = Window:NewTab("Teleports")
@@ -138,12 +188,19 @@ game.StarterGui:SetCore("SendNotification", {
     end)
     local PlayerSection = Player:NewSection("Team")
     PlayerSection:NewButton("Join to Police Team", "Join Police Team", function()
+    workspace.Remote.TeamEvent:FireServer("Bright blue")
     end)
     PlayerSection:NewButton("Join to Prisoner Team", "Join Prisoner Team", function()
+    workspace.Remote.TeamEvent:FireServer("Bright orange")
     end)
     PlayerSection:NewButton("Join to Criminal Team", "Join Criminal Team", function()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-976.125183, 109.123924, 2059.99536)
+ 
+wait(0.3)
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(918.77,100,2379.07)
     end)
     PlayerSection:NewButton("Join to Neutral Team", "Join Neutral Team", function()
+    Workspace.Remote.TeamEvent:FireServer("Medium stone grey")
     end)
     
     -- VISUALS
@@ -161,7 +218,7 @@ game.StarterGui:SetCore("SendNotification", {
 			workspace.Remote.ItemHandler:InvokeServer(workspace.Prison_ITEMS.giver["AK-47"].ITEMPICKUP)
         end)
 	CombatSection:NewButton("M9", "Give M9", function()
-    workspace.Remote.ItemHandler:InvokeServer(workspace.Prison_ITEMS.giver.M9.ITEMPICKUP)
+    workspace.Remote.ItemHandler:InvokeServer(workspace.Prison_ITEMS.giver["M9"].ITEMPICKUP)
 	end)
     CombatSection:NewButton("Remington 870", "Give Remington 870", function()
     workspace.Remote.ItemHandler:InvokeServer(workspace.Prison_ITEMS.giver["Remington 870"].ITEMPICKUP)
@@ -173,7 +230,7 @@ game.StarterGui:SetCore("SendNotification", {
     workspace.Remote.ItemHandler:InvokeServer(workspace.Prison_ITEMS.giver["M4A1"].ITEMPICKUP)
     end)
     local CombatSection = Combat:NewSection("Gun Mod")
-    CombatSection:NewDropdown("AutoFire", "Makes the gun op", {"M9", "Remington 870", "AK-47", "M4A1"}, function(v)
+    CombatSection:NewDropdown("All Mods", "Makes the gun op", {"M9", "Remington 870", "AK-47", "M4A1"}, function(v)
         local module = nil
         if game:GetService("Players").LocalPlayer.Backpack:FindFirstChild(v) then
             module = require(game:GetService("Players").LocalPlayer.Backpack[v].GunStates)
@@ -192,6 +249,106 @@ game.StarterGui:SetCore("SendNotification", {
             module["AutoFire"] = true
         end
     end)
+    
+CombatSection:NewDropdown("AutoFire", "Makes the gun op", {"M9", "Remington 870", "AK-47", "M4A1"}, function(v)
+        local module = nil
+        if game:GetService("Players").LocalPlayer.Backpack:FindFirstChild(v) then
+            module = require(game:GetService("Players").LocalPlayer.Backpack[v].GunStates)
+        elseif game:GetService("Players").LocalPlayer.Character:FindFirstChild(v) then
+            module = require(game:GetService("Players").LocalPlayer.Character[v].GunStates)
+        end
+        if module ~= nil then
+            module["AutoFire"] = true
+        end
+end)
+CombatSection:NewDropdown("Max Ammo", "Makes the gun op", {"M9", "Remington 870", "AK-47", "M4A1"}, function(v)
+        local module = nil
+        if game:GetService("Players").LocalPlayer.Backpack:FindFirstChild(v) then
+            module = require(game:GetService("Players").LocalPlayer.Backpack[v].GunStates)
+        elseif game:GetService("Players").LocalPlayer.Character:FindFirstChild(v) then
+            module = require(game:GetService("Players").LocalPlayer.Character[v].GunStates)
+        end
+        if module ~= nil then
+            module["MaxAmmo"] = math.huge
+        end
+end)
+CombatSection:NewDropdown("Current Ammo", "Makes the gun op", {"M9", "Remington 870", "AK-47", "M4A1"}, function(v)
+        local module = nil
+        if game:GetService("Players").LocalPlayer.Backpack:FindFirstChild(v) then
+            module = require(game:GetService("Players").LocalPlayer.Backpack[v].GunStates)
+        elseif game:GetService("Players").LocalPlayer.Character:FindFirstChild(v) then
+            module = require(game:GetService("Players").LocalPlayer.Character[v].GunStates)
+        end
+        if module ~= nil then
+            module["CurrentAmmo"] = math.huge
+        end
+end)
+CombatSection:NewDropdown("Stored Ammo", "Makes the gun op", {"M9", "Remington 870", "AK-47", "M4A1"}, function(v)
+        local module = nil
+        if game:GetService("Players").LocalPlayer.Backpack:FindFirstChild(v) then
+            module = require(game:GetService("Players").LocalPlayer.Backpack[v].GunStates)
+        elseif game:GetService("Players").LocalPlayer.Character:FindFirstChild(v) then
+            module = require(game:GetService("Players").LocalPlayer.Character[v].GunStates)
+        end
+        if module ~= nil then
+            module["StoredAmmo"] = math.huge
+        end
+end)
+CombatSection:NewDropdown("Firerate", "Makes the gun op", {"M9", "Remington 870", "AK-47", "M4A1"}, function(v)
+        local module = nil
+        if game:GetService("Players").LocalPlayer.Backpack:FindFirstChild(v) then
+            module = require(game:GetService("Players").LocalPlayer.Backpack[v].GunStates)
+        elseif game:GetService("Players").LocalPlayer.Character:FindFirstChild(v) then
+            module = require(game:GetService("Players").LocalPlayer.Character[v].GunStates)
+        end
+        if module ~= nil then
+            module["Firerate"] = 0.000001
+        end
+end)
+CombatSection:NewDropdown("Spread", "Makes the gun op - Remove spread", {"M9", "Remington 870", "AK-47", "M4A1"}, function(v)
+        local module = nil
+        if game:GetService("Players").LocalPlayer.Backpack:FindFirstChild(v) then
+            module = require(game:GetService("Players").LocalPlayer.Backpack[v].GunStates)
+        elseif game:GetService("Players").LocalPlayer.Character:FindFirstChild(v) then
+            module = require(game:GetService("Players").LocalPlayer.Character[v].GunStates)
+        end
+        if module ~= nil then
+            module["Spread"] = 0
+        end
+end)
+CombatSection:NewDropdown("Range", "Makes the gun op - Increase range", {"M9", "Remington 870", "AK-47", "M4A1"}, function(v)
+        local module = nil
+        if game:GetService("Players").LocalPlayer.Backpack:FindFirstChild(v) then
+            module = require(game:GetService("Players").LocalPlayer.Backpack[v].GunStates)
+        elseif game:GetService("Players").LocalPlayer.Character:FindFirstChild(v) then
+            module = require(game:GetService("Players").LocalPlayer.Character[v].GunStates)
+        end
+        if module ~= nil then
+            module["Range"] = math.huge
+        end
+end)
+CombatSection:NewDropdown("Bullets - Increase more bullets to shoot - Maybe create lag with remington", "Makes the gun op", {"M9", "Remington 870", "AK-47", "M4A1"}, function(v)
+        local module = nil
+        if game:GetService("Players").LocalPlayer.Backpack:FindFirstChild(v) then
+            module = require(game:GetService("Players").LocalPlayer.Backpack[v].GunStates)
+        elseif game:GetService("Players").LocalPlayer.Character:FindFirstChild(v) then
+            module = require(game:GetService("Players").LocalPlayer.Character[v].GunStates)
+        end
+        if module ~= nil then
+            module["Bullets"] = 10
+        end
+end)
+CombatSection:NewDropdown("Reaload Time", "Makes the gun op", {"M9", "Remington 870", "AK-47", "M4A1"}, function(v)
+        local module = nil
+        if game:GetService("Players").LocalPlayer.Backpack:FindFirstChild(v) then
+            module = require(game:GetService("Players").LocalPlayer.Backpack[v].GunStates)
+        elseif game:GetService("Players").LocalPlayer.Character:FindFirstChild(v) then
+            module = require(game:GetService("Players").LocalPlayer.Character[v].GunStates)
+        end
+        if module ~= nil then
+            module["RealoadTime"] = 0.000001
+        end
+end)
     local CombatSection = Combat:NewSection("Aimbot")
     
     -- ADMIN
