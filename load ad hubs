@@ -1,0 +1,28 @@
+local function callback(Text)
+ if Text == "1 Hub" then
+loadstring(game:HttpGet("https://raw.githubusercontent.com/thraxhvh/scripts/main/anime%20adventures"))()
+elseif Text == ("2 Hubs") then
+ loadstring(game:HttpGet("https://raw.githubusercontent.com/thraxhvh/scripts/main/anime%20adventures"))()
+ wait(2)
+ game.StarterGui:SetCore("SendNotification",  {
+ Title = "Storm Hub";
+ Text = "Please hold the first hub to the left so the second one doesn't overlap the first";
+ Duration = 5;
+ })
+ wait(1)
+ loadstring(game:HttpGet("https://raw.githubusercontent.com/thraxhvh/scripts/main/anime%20adventures%20play%20hub"))()
+ end
+end
+
+local NotificationBindable = Instance.new("BindableFunction")
+NotificationBindable.OnInvoke = callback
+--
+game.StarterGui:SetCore("SendNotification",  {
+ Title = "Storm Hub";
+ Text = "Load 1 or 2 hubs";
+ Icon = "";
+ Duration = 5;
+ Button1 = "1 Hub";
+ Button2 = "2 Hubs";
+ Callback = NotificationBindable;
+})
