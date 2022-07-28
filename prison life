@@ -10,7 +10,7 @@ game.StarterGui:SetCore("SendNotification", {
     Duration = 1;
   })
     local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/xHeptc/Kavo-UI-Library/main/source.lua"))()
-    local Window = Library.CreateLib("Storm Hub", "Sentinel")
+    local Window = Library.CreateLib("Storm Hub | Prison Life", "Sentinel")
     
     -- WELCOME
     local Welcome = Window:NewTab("Welcome")
