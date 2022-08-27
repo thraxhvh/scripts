@@ -6,7 +6,7 @@
     local WelcomeSection = Welcome:NewSection("Welcome")
     WelcomeSection:NewButton("Welcome to Storm Hub", "Welcome to Storm Hub", function()
     end)
-    WelcomeSection:NewButton("Game: 5023820864 | Spider", "Game: Trade Tower", function()
+    WelcomeSection:NewButton("Game: 5023820864 | Trade Tower", "Game: Trade Tower", function()
     end)
 
     -- MAIN
