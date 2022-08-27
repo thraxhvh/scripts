@@ -17,13 +17,13 @@
         _G.autoClick = true
 while _G.autoClick == true do
 game:GetService("ReplicatedStorage").Events.ClientClick:FireServer()
-wait(1)
+wait()
 end
     else
         _G.autoClick = false
 while _G.autoClick == true do
 game:GetService("ReplicatedStorage").Events.ClientClick:FireServer()
-wait(1)
+wait()
 end
     end
 end)
