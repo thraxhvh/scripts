@@ -1,0 +1,68 @@
+    local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/xHeptc/Kavo-UI-Library/main/source.lua"))()
+    local Window = Library.CreateLib("Trade Tower | Storm Hub", "Sentinel")
+    
+    -- WELCOME
+    local Welcome = Window:NewTab("Welcome")
+    local WelcomeSection = Welcome:NewSection("Welcome")
+    WelcomeSection:NewButton("Welcome to Storm Hub", "Welcome to Storm Hub", function()
+    end)
+    WelcomeSection:NewButton("Game: 5023820864 | Spider", "Game: Trade Tower", function()
+    end)
+
+    -- MAIN
+    local Main = Window:NewTab("Main")
+    local MainSection = Main:NewSection("Main")
+    MainSection:NewToggle("Auto Click", "Auto Click", function(state)
+    if state then
+        _G.autoClick = true
+while _G.autoClick == true do
+game:GetService("ReplicatedStorage").Events.ClientClick:FireServer()
+wait(1)
+end
+    else
+        _G.autoClick = false
+while _G.autoClick == true do
+game:GetService("ReplicatedStorage").Events.ClientClick:FireServer()
+wait(1)
+end
+    end
+end)
+    MainSection:NewToggle("Auto Upgrade TradeBucks", "Auto Upgrade", function(state)
+    if state then
+        _G.autoUpgrade = true
+while _G.autoUpgrade == true do
+local args = {
+    [1] = "Upgrade",
+    [2] = "Clicks"
+}
+
+game:GetService("ReplicatedStorage").Events.StoreActions:InvokeServer(unpack(args))
+end
+    else
+        _G.autoUpgrade = false
+while _G.autoUpgrade == true do
+local args = {
+    [1] = "Upgrade",
+    [2] = "Clicks"
+}
+
+game:GetService("ReplicatedStorage").Events.StoreActions:InvokeServer(unpack(args))
+end
+    end
+end)
+
+    
+    -- MISC
+    local Misc = Window:NewTab("Misc")
+    local MiscSection = Misc:NewSection("Misc")
+        MiscSection:NewButton("InfJump", "Enables InfJump", function()
+    local InfiniteJumpEnabled = true
+game:GetService("UserInputService").JumpRequest:connect(function()
+	if InfiniteJumpEnabled then
+		game:GetService"Players".LocalPlayer.Character:FindFirstChildOfClass'Humanoid':ChangeState("Jumping")
+	end
+end)
+end)
+    MiscSection:NewKeybind("Toggle UI", "U can change it", Enum.KeyCode.V, function()
+	Library:ToggleUI()
+end)
