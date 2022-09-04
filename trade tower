@@ -1,3 +1,9 @@
+game:GetService("Players").LocalPlayer.Idled:connect(function()
+game:GetService("VirtualUser"):Button2Down(Vector2.new(0,0),workspace.CurrentCamera.CFrame)
+wait(1)
+game:GetService("VirtualUser"):Button2Up(Vector2.new(0,0),workspace.CurrentCamera.CFrame)
+end)
+
     local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/xHeptc/Kavo-UI-Library/main/source.lua"))()
     local Window = Library.CreateLib("Trade Tower | Storm Hub", "Sentinel")
     
@@ -47,6 +53,89 @@ local args = {
 }
 
 game:GetService("ReplicatedStorage").Events.StoreActions:InvokeServer(unpack(args))
+end
+    end
+end)
+    MainSection:NewButton("Afk on", "Afk on", function()
+    local args = {
+        [1] = true
+    }
+
+    game:GetService("ReplicatedStorage").Events.AFK:FireServer(unpack(args))
+    end)
+    MainSection:NewButton("Afk off", "Afk off", function()
+    local args = {
+        [1] = false
+    }
+
+    game:GetService("ReplicatedStorage").Events.AFK:FireServer(unpack(args))
+    end)
+    local MainSection = MainNewSection("Case")
+    MainSection:NewButton("Standard - 1350", "Open Standard Case", function()
+    local args = {
+        [1] = "Starter"
+    }
+
+    game:GetService("ReplicatedStorage").Events.OpenCase:InvokeServer(unpack(args))
+    end)
+    MainSection:NewToggle("Starter - 1350", "Auto open Starter Case", function(state)
+    if state then
+        _G.autoStarter = true
+    while _G.autoStarter == true do
+    local args = {
+        [1] = "Starter"
+    }
+
+    game:GetService("ReplicatedStorage").Events.OpenCase:InvokeServer(unpack(args))
+    end
+        else
+        _G.autoStarter = false
+    while _G.autoStarter == false do
+    local args = {
+        [1] = "Starter"
+    }
+
+    game:GetService("ReplicatedStorage").Events.OpenCase:InvokeServer(unpack(args))
+end
+    end
+end)
+    MainSection:NewButton("Noobie - 5500", "Open Noobie Case", function()
+    local args = {
+        [1] = "Noobie"
+    }
+
+    game:GetService("ReplicatedStorage").Events.OpenCase:InvokeServer(unpack(args))
+    end)
+    MainSection:NewToogle("Noobie - 5500", "Auto open Noobie Case", function(state)
+    if state then
+        _G.autoNoobie = true
+    while _G.autoNoobie == true do
+
+    MainSection:NewButton("Business - 33.5K", "Open Business Case", function()
+    local args = {
+        [1] = "Business"
+    }
+
+    game:GetService("ReplicatedStorage").Events.OpenCase:InvokeServer(unpack(args))
+    end)
+    MainSection:NewToggle("Business - 33.5K", "Auto open Business case", function(state)
+    if state then
+        _G.autoBusiness = true
+    while _G.autoBusiness == true do
+        local args = {
+            [1] = "Business"
+        }
+
+        game:GetService("ReplicatedStorage").Events.OpenCase:InvokeServer(unpack(args))
+    end
+        else
+        _G.autoBusiness = false
+    while _G.autoBusiness == true do
+        local args = {
+            [1] = "Business"
+        }
+
+        game:GetService("ReplicatedStorage").Events.OpenCase:InvokeServer(unpack(args)) 
 end
     end
 end)
