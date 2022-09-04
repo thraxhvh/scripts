@@ -1,3 +1,4 @@
+loadstring(game:HttpGet("https://raw.githubusercontent.com/thraxhvh/scripts/main/anti%20afk"))()
 game.StarterGui:SetCore("SendNotification", {
     Title = 'Storm Hub';
     Text = 'Script loading...';
