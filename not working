@@ -1,5 +1,0 @@
-game.StarterGui:SetCore("SendNotification", {
-    Title = 'Storm Hub'
-    Text = 'Not working'
-    Duration =1;
-  })
